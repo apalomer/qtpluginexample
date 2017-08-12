@@ -8,22 +8,8 @@ set (QT_USE_QTDESIGNER TRUE)
 set (QT_USE_QTGUI TRUE)
 INCLUDE(${QT_USE_FILE})
 ADD_DEFINITIONS(${QT_DEFINITIONS})
-ADD_DEFINITIONS(-DQT_PLUGIN)
-ADD_DEFINITIONS(-DQT_NO_DEBUG)
-ADD_DEFINITIONS(-DQT_SHARED)
-ADD_DEFINITIONS(-DQDESIGNER_EXPORT_WIDGETS)
-ADD_DEFINITIONS(-DQT_SCRIPT_LIB)
-ADD_DEFINITIONS(-DQT_XML_LIB)
-ADD_DEFINITIONS(-DQT_GUI_LIB)
-ADD_DEFINITIONS(-DQT_CORE_LIB)
 
-set(PLUGIN_INSTALL_DIR /usr/lib/x86_64-linux-gnu/qt5/plugins/designer/)
-set (includeDirs ${includeDirs}
-    ${customwidgetplugin_SOURCE_DIR/src}
-)
-include_directories (${customwidgetplugin_SOURCE_DIR} ${includeDirs})
-
-
+# Create library
 QT4_WRAP_CPP(analogclock_moc src/analogclock.h)
 add_library(analogclock SHARED src/analogclock.cpp ${analogclock_moc})
 target_link_libraries(analogclock ${QT_LIBRARIES})
@@ -36,11 +22,27 @@ target_link_libraries( analogclockplugin
   ${QT_LIBRARIES}
   # other needed libs
 )
+set_target_properties(analogclockplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY designer)
+
+# Create library
+QT4_WRAP_CPP(digitalclock_moc src/digitalclock.h)
+add_library(digitalclock SHARED src/digitalclock.cpp ${digitalclock_moc})
+target_link_libraries(digitalclock ${QT_LIBRARIES})
+
+# the name of the plugin module is the same name as used in the macro Q_EXPORT_PLUGIN2 in the file mywidgetdesignerfactory.cpp
+QT4_WRAP_CPP(digitalclockplugin_moc src/digitalclockplugin.h)
+add_library( digitalclockplugin SHARED src/digitalclockplugin.cpp ${digitalclockplugin_moc})
+target_link_libraries( digitalclockplugin
+  digitalclock
+  ${QT_LIBRARIES}
+  # other needed libs
+)
+set_target_properties(digitalclockplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY designer)
 
 # Use the widget
 add_executable(main src/main.cpp)
-target_link_libraries(main ${QT_LIBRARYES} analogclock)
+target_link_libraries(main ${QT_LIBRARYES} analogclock digitalclock)
 
-install( TARGETS analogclockplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
-message(STATUS "PLUGIN_INSTALL_DIR: ${PLUGIN_INSTALL_DIR}")
-
+#
+get_target_property(analogclock_output analogclockplugin LIBRARY_OUTPUT_DIRECTORY)
+message(STATUS "To load the plugins into desinger-qt4 set QT_PLUGIN_PATH=$QT_PLUGIN_PATH:${CMAKE_CURRENT_BINARY_DIR}/${analogclock_output}")

@@ -47,6 +47,9 @@ class AnalogClockPlugin : public QObject, public QDesignerCustomWidgetInterface
 {
     Q_OBJECT
     Q_INTERFACES(QDesignerCustomWidgetInterface)
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+        Q_PLUGIN_METADATA(IID "com.ics.Qt.CustomWidgets")
+#endif
 
 public:
     AnalogClockPlugin(QObject *parent = 0);

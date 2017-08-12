@@ -38,23 +38,36 @@
 **
 ****************************************************************************/
 
-#ifndef ANALOGCLOCK_H
-#define ANALOGCLOCK_H
+#ifndef CUSTOMWIDGETPLUGIN_H
+#define CUSTOMWIDGETPLUGIN_H
 
-#include <QWidget>
-#include <QtDesigner/QDesignerExportWidget>
+#include <QDesignerCustomWidgetInterface>
 
-class QDESIGNER_WIDGET_EXPORT AnalogClock : public QWidget
-//class AnalogClock : public QWidget
+class DigitalClockPlugin : public QObject, public QDesignerCustomWidgetInterface
 {
     Q_OBJECT
+    Q_INTERFACES(QDesignerCustomWidgetInterface)
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+        Q_PLUGIN_METADATA(IID "com.ics.Qt.CustomWidgets")
+#endif
 
 public:
-    explicit AnalogClock(QWidget *parent = 0);
-    virtual ~AnalogClock();
+    DigitalClockPlugin(QObject *parent = 0);
 
-protected:
-    void paintEvent(QPaintEvent *event);
+    bool isContainer() const;
+    bool isInitialized() const;
+    QIcon icon() const;
+    QString domXml() const;
+    QString group() const;
+    QString includeFile() const;
+    QString name() const;
+    QString toolTip() const;
+    QString whatsThis() const;
+    QWidget *createWidget(QWidget *parent);
+    void initialize(QDesignerFormEditorInterface *core);
+
+private:
+    bool initialized;
 };
 
 #endif

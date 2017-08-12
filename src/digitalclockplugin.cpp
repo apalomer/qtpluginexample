@@ -38,23 +38,91 @@
 **
 ****************************************************************************/
 
-#ifndef ANALOGCLOCK_H
-#define ANALOGCLOCK_H
+#include "digitalclock.h"
+#include "digitalclockplugin.h"
 
-#include <QWidget>
-#include <QtDesigner/QDesignerExportWidget>
+#include <QtPlugin>
 
-class QDESIGNER_WIDGET_EXPORT AnalogClock : public QWidget
-//class AnalogClock : public QWidget
+DigitalClockPlugin::DigitalClockPlugin(QObject *parent)
+    : QObject(parent)
 {
-    Q_OBJECT
+    initialized = false;
+}
 
-public:
-    explicit AnalogClock(QWidget *parent = 0);
-    virtual ~AnalogClock();
+void DigitalClockPlugin::initialize(QDesignerFormEditorInterface * /* core */)
+{
+    if (initialized)
+        return;
 
-protected:
-    void paintEvent(QPaintEvent *event);
-};
+    initialized = true;
+}
 
+bool DigitalClockPlugin::isInitialized() const
+{
+    return initialized;
+}
+
+QWidget *DigitalClockPlugin::createWidget(QWidget *parent)
+{
+    return new DigitalClock(parent);
+}
+
+QString DigitalClockPlugin::name() const
+{
+    return "DigitalClock";
+}
+
+QString DigitalClockPlugin::group() const
+{
+    return "Custom created widgets [Example]";
+}
+
+QIcon DigitalClockPlugin::icon() const
+{
+    return QIcon();
+}
+
+QString DigitalClockPlugin::toolTip() const
+{
+    return "";
+}
+
+QString DigitalClockPlugin::whatsThis() const
+{
+    return "";
+}
+
+bool DigitalClockPlugin::isContainer() const
+{
+    return false;
+}
+
+QString DigitalClockPlugin::domXml() const
+{
+    return "<ui language=\"c++\">\n"
+           " <widget class=\"DigitalClock\" name=\"digitalClock\">\n"
+           "  <property name=\"geometry\">\n"
+           "   <rect>\n"
+           "    <x>0</x>\n"
+           "    <y>0</y>\n"
+           "    <width>100</width>\n"
+           "    <height>100</height>\n"
+           "   </rect>\n"
+           "  </property>\n"
+           "  <property name=\"toolTip\" >\n"
+           "   <string>The current time</string>\n"
+           "  </property>\n"
+           "  <property name=\"whatsThis\" >\n"
+           "   <string>The Digital clock widget displays the current time.</string>\n"
+           "  </property>\n"
+           " </widget>\n"
+           "</ui>\n";
+}
+
+QString DigitalClockPlugin::includeFile() const
+{
+    return "digitalclock.h";
+}
+#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
+    Q_EXPORT_PLUGIN2(digitalclockplugin, DigitalClockPlugin)
 #endif

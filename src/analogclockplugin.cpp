@@ -74,7 +74,7 @@ QString AnalogClockPlugin::name() const
 
 QString AnalogClockPlugin::group() const
 {
-    return "Display Widgets [Examples]";
+    return "Custom created widgets [Example]";
 }
 
 QIcon AnalogClockPlugin::icon() const
@@ -123,5 +123,6 @@ QString AnalogClockPlugin::includeFile() const
 {
     return "analogclock.h";
 }
-
-Q_EXPORT_PLUGIN2(customwidgetplugin, AnalogClockPlugin)
+#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
+    Q_EXPORT_PLUGIN2(analogclockplugin, AnalogClockPlugin)
+#endif
