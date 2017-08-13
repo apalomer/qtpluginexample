@@ -10,7 +10,7 @@ target_link_libraries( digitalclockplugin
   digitalclock
   ${QT_LIBRARIES}
 )
-install(TARGETS digitalclock digitalclockplugin DESTINATION ${INSTALL_QTPLUGINS_DIR})
+install(TARGETS digitalclockplugin DESTINATION ${INSTALL_QTPLUGINS_DIR})
 
 #if this is done befor the previous command the header files ar copied to qt pluguins as well
 set_target_properties(digitalclock PROPERTIES

@@ -12,7 +12,7 @@ target_link_libraries( analogclockplugin
   analogclock
   ${QT_LIBRARIES}
 )
-install(TARGETS analogclock analogclockplugin DESTINATION ${INSTALL_QTPLUGINS_DIR})
+install(TARGETS analogclockplugin DESTINATION ${INSTALL_QTPLUGINS_DIR})
 
 #if this is done befor the previous command the header files ar copied to qt pluguins as well
 set_target_properties(analogclock PROPERTIES

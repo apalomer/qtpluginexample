@@ -12,7 +12,7 @@ target_link_libraries( clockplugin
   clock
   ${QT_LIBRARIES}
 )
-install(TARGETS clock clockplugin DESTINATION ${INSTALL_QTPLUGINS_DIR})
+install(TARGETS clockplugin DESTINATION ${INSTALL_QTPLUGINS_DIR})
 
 #if this is done befor the previous command the header files ar copied to qt pluguins as well
 set_target_properties(clock PROPERTIES
