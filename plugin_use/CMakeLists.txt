@@ -17,7 +17,7 @@ include_directories(${Clock_INCLUDE_DIRS})
 QT4_WRAP_CPP(clockday_moc src/clockday.h)
 QT4_WRAP_UI(clockday_ui ui/clockday.ui)
 add_library(clockday SHARED src/clockday.cpp ${clockday_moc} ${clockday_ui})
-target_link_libraries(clockday ${QT_LIBRARIES} clock)
+target_link_libraries(clockday ${QT_LIBRARIES} ${Clock_LIBRARIES})
 
 # Use the widget
 add_executable(main src/main.cpp)

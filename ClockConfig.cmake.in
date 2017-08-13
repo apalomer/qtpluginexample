@@ -12,5 +12,5 @@ set(Clock_INCLUDE_DIRS "@CONF_INCLUDE_DIRS@")
 include("${Clock_CMAKE_DIR}/ClockTargets.cmake")
 
 # These are IMPORTED targets created by ClockTargets.cmake
-set(Clock_LIBRARIES foo)
-set(Clock_EXECUTABLE bar)
+set(Clock_LIBRARIES @PROJECT_LIBS@)
+set(Clock_EXECUTABLE @PROJECT_BINS@)
