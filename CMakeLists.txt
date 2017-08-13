@@ -3,8 +3,13 @@ cmake_minimum_required (VERSION 2.6)
 project (ClockProject CXX C)
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR})
 
+# Check platform
+if(NOT UNIX)
+    message( FATAL_ERROR "This project can only compile in Unix systems" )
+endif()
+
 # track library version
-set(CLOCK_MAJOR_VERSION 0)
+set(CLOCK_MAJOR_VERSION 4)
 set(CLOCK_MINOR_VERSION 1)
 set(CLOCK_PATCH_VERSION 0)
 set(CLOCK_VERSION
@@ -33,6 +38,7 @@ set(INSTALL_BIN_DIR "${CMAKE_INSTALL_PREFIX}/bin")
 set(INSTALL_LIB_DIR "${CMAKE_INSTALL_PREFIX}/lib")
 set(INSTALL_INCLUDE_DIR "${CMAKE_INSTALL_PREFIX}/include/clock")
 set(INSTALL_CMAKE_DIR "${CMAKE_INSTALL_PREFIX}/share/clock")
+set(INSTALL_QTPLUGINS_DIR "/usr/lib/qt4/plugins/designer/")
 
 # Find LIbrary
 FIND_PACKAGE(Qt 4 REQUIRED)
@@ -79,3 +85,8 @@ install(FILES
 # Install the export set for use with the install-tree
 install(EXPORT ClockTargets DESTINATION
   "${INSTALL_CMAKE_DIR}" COMPONENT dev)
+
+# Unisntall
+add_custom_target(uninstall
+    COMMAND xargs --verbose rm < ${CMAKE_SOURCE_DIR}/build/install_manifest.txt
+)

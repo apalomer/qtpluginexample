@@ -12,8 +12,9 @@ target_link_libraries( analogclockplugin
   analogclock
   ${QT_LIBRARIES}
 )
-#set_target_properties(analogclockplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/designer)
+install(TARGETS analogclock analogclockplugin DESTINATION ${INSTALL_QTPLUGINS_DIR})
 
+#if this is done befor the previous command the header files ar copied to qt pluguins as well
 set_target_properties(analogclock PROPERTIES
   PUBLIC_HEADER "analogclock.h")
 
@@ -23,3 +24,5 @@ install(TARGETS analogclock
   RUNTIME DESTINATION "${INSTALL_BIN_DIR}" COMPONENT bin
   LIBRARY DESTINATION "${INSTALL_LIB_DIR}" COMPONENT shlib
   PUBLIC_HEADER DESTINATION "${INSTALL_INCLUDE_DIR}/analogclock" COMPONENT dev)
+
+

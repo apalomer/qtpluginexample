@@ -10,8 +10,9 @@ target_link_libraries( digitalclockplugin
   digitalclock
   ${QT_LIBRARIES}
 )
-#set_target_properties(digitalclockplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/designer)
+install(TARGETS digitalclock digitalclockplugin DESTINATION ${INSTALL_QTPLUGINS_DIR})
 
+#if this is done befor the previous command the header files ar copied to qt pluguins as well
 set_target_properties(digitalclock PROPERTIES
   PUBLIC_HEADER "digitalclock.h")
 
@@ -21,3 +22,4 @@ install(TARGETS digitalclock
   RUNTIME DESTINATION "${INSTALL_BIN_DIR}" COMPONENT bin
   LIBRARY DESTINATION "${INSTALL_LIB_DIR}" COMPONENT shlib
   PUBLIC_HEADER DESTINATION "${INSTALL_INCLUDE_DIR}/digitalclock" COMPONENT dev)
+

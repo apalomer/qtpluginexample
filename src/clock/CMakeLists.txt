@@ -12,8 +12,9 @@ target_link_libraries( clockplugin
   clock
   ${QT_LIBRARIES}
 )
-#set_target_properties(clockplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/designer)
+install(TARGETS clock clockplugin DESTINATION ${INSTALL_QTPLUGINS_DIR})
 
+#if this is done befor the previous command the header files ar copied to qt pluguins as well
 set_target_properties(clock PROPERTIES
   PUBLIC_HEADER "clock.h;../analogclock/analogclock.h;../digitalclock/digitalclock.h")
 
