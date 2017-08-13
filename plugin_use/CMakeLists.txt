@@ -9,7 +9,6 @@ set (QT_USE_QTDESIGNER TRUE)
 set (QT_USE_QTGUI TRUE)
 INCLUDE(${QT_USE_FILE})
 ADD_DEFINITIONS(${QT_DEFINITIONS})
-include_directories("/home/apalomer/QtPluginExample/src")
 
 find_package(Clock REQUIRED)
 include_directories(${Clock_INCLUDE_DIRS})
