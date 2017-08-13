@@ -1,5 +1,7 @@
+#include <stdio.h>
 #include <QApplication>
 #include "clockday.h"
+#include <clockversion.h>
 
 int main(int argc, char** argv) {
 
@@ -9,6 +11,7 @@ int main(int argc, char** argv) {
     ClockDay* cd = new ClockDay();
 
     // Run
+    printf("This ClockDay is using clock version %s\n", CLOCK_VERSION_STRING);
     cd->show();
     return app.exec();
 }
