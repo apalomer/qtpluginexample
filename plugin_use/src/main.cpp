@@ -1,14 +1,14 @@
 #include <QApplication>
-#include "clock.h"
+#include "clockday.h"
 
 int main(int argc, char** argv) {
 
     QApplication app(argc, argv);
 
     // Create the image widget
-    Clock* clock = new Clock();
+    ClockDay* cd = new ClockDay();
 
     // Run
-    clock->show();
+    cd->show();
     return app.exec();
 }

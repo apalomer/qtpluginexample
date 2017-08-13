@@ -1,35 +1,20 @@
 #include <QApplication>
-#include <QMainWindow>
-#include <QGridLayout>
-#include "analogclock.h"
-#include "digitalclock.h"
+#include "clock/clock.h"
+#include "clockversion.h"
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv)
+{
 
+    // Create application
     QApplication app(argc, argv);
 
-    // Create the image widget
-    AnalogClock* ac = new AnalogClock();
+    // Create widget
+    Clock* clock = new Clock;
+    clock->show();
 
-    // Create digital clock
-    DigitalClock* dc = new DigitalClock();
-
-    // Create Window
-    QMainWindow* window = new QMainWindow;
-    window->setWindowTitle("Clock");
-    window->resize(200,200);
-
-    // Create Widget
-    QWidget* widget = new QWidget;
-    window->setCentralWidget(widget);
-
-    // Set layout
-    QGridLayout* layout = new QGridLayout;
-    layout->addWidget(ac,0,0,4,4);
-    layout->addWidget(dc,4,0,1,4);
-    widget->setLayout(layout);
+    // Display clock version
+    printf("This is clock version %s\n", CLOCK_VERSION_STRING);
 
     // Run
-    window->show();
     return app.exec();
 }

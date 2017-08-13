@@ -3,22 +3,19 @@
 
 #include <QWidget>
 #include <QGridLayout>
-#include "ui_clock.h"
 
-namespace Ui {
-class Clock;
-}
+#include "analogclock/analogclock.h"
+#include "digitalclock/digitalclock.h"
 
 class Clock : public QWidget
 {
     Q_OBJECT
-
 public:
     explicit Clock(QWidget *parent = 0);
-    ~Clock();
-
 private:
-    Ui::Clock *ui;
+    QGridLayout* layout_;
+    AnalogClock* analog_clock_;
+    DigitalClock* digital_clock_;
 };
 
 #endif // CLOCK_H

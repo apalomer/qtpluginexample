@@ -1,0 +1,16 @@
+# - Config file for the Clock package
+# It defines the following variables
+#  Clock_INCLUDE_DIRS - include directories for Clock
+#  Clock_LIBRARIES    - libraries to link against
+#  Clock_EXECUTABLE   - the bar executable
+
+# Compute paths
+get_filename_component(Clock_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+set(Clock_INCLUDE_DIRS "@CONF_INCLUDE_DIRS@")
+
+# Our library dependencies (contains definitions for IMPORTED targets)
+include("${Clock_CMAKE_DIR}/ClockTargets.cmake")
+
+# These are IMPORTED targets created by ClockTargets.cmake
+set(Clock_LIBRARIES foo)
+set(Clock_EXECUTABLE bar)
