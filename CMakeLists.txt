@@ -1,6 +1,7 @@
 # Set up cmake
 cmake_minimum_required (VERSION 2.6)
 project (ClockProject CXX C)
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR})
 
 # Check platform
