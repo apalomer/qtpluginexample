@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="Clock" name="widget" native="true"/>
+    <widget class="Clock" name="clock" native="true"/>
    </item>
    <item>
     <widget class="QLabel" name="dayLabel">
@@ -44,6 +44,70 @@
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Time format</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox">
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <item>
+        <property name="text">
+         <string>hh</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>hh:mm</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>hh:mm:ss</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>hh:mm:ss.zzz</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>mm:ss</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>mm:ss.zzz</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ss</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ss.zzz</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>

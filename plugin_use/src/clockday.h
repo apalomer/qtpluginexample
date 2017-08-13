@@ -18,6 +18,8 @@ public:
     ~ClockDay();
 private slots:
     void updateDay();
+    void on_comboBox_currentIndexChanged(int index);
+
 private:
     Ui::ClockDay *ui;
     QTimer* timer;

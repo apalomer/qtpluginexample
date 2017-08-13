@@ -43,18 +43,38 @@
 
 #include <QWidget>
 #include <QtDesigner/QDesignerExportWidget>
+#include <bitset>
+#include <iostream>
+#include <iomanip>
 
 class QDESIGNER_WIDGET_EXPORT AnalogClock : public QWidget
-//class AnalogClock : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit AnalogClock(QWidget *parent = 0);
+    enum DISPLAY
+    {
+        DISPLAY_MS = 0X01,
+        DISPLAY_S  = 0X02,
+        DISPLAY_M  = 0X04,
+        DISPLAY_H  = 0X08
+    };
+    explicit AnalogClock(QWidget* parent = 0);
+    explicit AnalogClock(uchar display, QWidget *parent = 0);
     virtual ~AnalogClock();
+    uchar getDisplayType();
+public slots:
+    void setDisplay(uchar display);
+
+signals:
+    void displayTypeUpdated(AnalogClock* analog_clock);
+    void displayTypeUpdated(uchar display);
+    void displayTypeUpdated();
 
 protected:
     void paintEvent(QPaintEvent *event);
+private:
+    uchar displayType_;
 };
 
 #endif
