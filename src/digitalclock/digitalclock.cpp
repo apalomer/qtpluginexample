@@ -1,18 +1,24 @@
 #include "digitalclock.h"
 
 DigitalClock::DigitalClock(uchar display, QWidget *parent)
-    : QLCDNumber(parent), displayType_(display)
+    : AbstractClock(display,parent)
 {
     // Preapare widget
     setWindowTitle(tr("Digital Clock"));
 
-    // Set Widget style
-    setSegmentStyle(Filled);
+    // Set LCD
+    lcd_ = new QLCDNumber;
+    lcd_->setSegmentStyle(QLCDNumber::Filled);
+
+    // Set up layout
+    layout_ = new QVBoxLayout;
+    this->setLayout(layout_);
+    layout_->addWidget(lcd_);
 
     // Set timer
-    QTimer *timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(showTime()));
-    timer->start(1);
+    timer_ = new QTimer(this);
+    connect(timer_, SIGNAL(timeout()), this, SLOT(showTime()));
+    timer_->start(1);
 
     // Draw
     showTime();
@@ -27,7 +33,9 @@ DigitalClock::DigitalClock(QWidget *parent)
 
 DigitalClock::~DigitalClock()
 {
-
+    delete lcd_;
+    delete timer_;
+    delete layout_;
 }
 
 void DigitalClock::showTime()
@@ -68,87 +76,6 @@ void DigitalClock::showTime()
      }
 
      // Set up display
-     setNumDigits(text.size());
-     display(text);
+     lcd_->setNumDigits(text.size());
+     lcd_->display(text);
  }
-
-void DigitalClock::setDisplay(uchar display)
-{
-    displayType_ = display;
-    emit displayTypeUpdated();
-    emit displayTypeUpdated(display);
-    emit displayTypeUpdated(this);
-}
-
-uchar DigitalClock::getDisplayType()
-{
-    return displayType_;
-}
-
-bool DigitalClock::getDisplayHours()
-{
-    return displayType_ & DISPLAY_H;
-}
-
-bool DigitalClock::getDisplayMinutes()
-{
-    return displayType_ & DISPLAY_M;
-}
-
-bool DigitalClock::getDisplaySeconds()
-{
-    return displayType_ & DISPLAY_S;
-}
-
-bool DigitalClock::getDisplayMilliseconds()
-{
-    return displayType_ & DISPLAY_MS;
-}
-
-void DigitalClock::setDisplayHours(bool display)
-{
-    if (display)
-        addDisplay(DISPLAY_H);
-    else
-        removeDisplay(DISPLAY_H);
-}
-
-void DigitalClock::setDisplayMinutes(bool display)
-{
-    if (display)
-        addDisplay(DISPLAY_M);
-    else
-        removeDisplay(DISPLAY_M);
-}
-
-void DigitalClock::setDisplaySeconds(bool display)
-{
-    if (display)
-        addDisplay(DISPLAY_S);
-    else
-        removeDisplay(DISPLAY_S);
-}
-
-void DigitalClock::setDisplayMilliseconds(bool display)
-{
-    if (display)
-        addDisplay(DISPLAY_MS);
-    else
-        removeDisplay(DISPLAY_MS);
-}
-
-void DigitalClock::addDisplay(uchar display)
-{
-    displayType_ |= display;
-    emit displayTypeUpdated();
-    emit displayTypeUpdated(displayType_);
-    emit displayTypeUpdated(this);
-}
-
-void DigitalClock::removeDisplay(uchar display)
-{
-    displayType_ &= ~(1u<<(int)log2(display));
-    emit displayTypeUpdated();
-    emit displayTypeUpdated(displayType_);
-    emit displayTypeUpdated(this);
-}

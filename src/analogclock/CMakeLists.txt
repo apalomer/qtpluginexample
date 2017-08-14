@@ -3,7 +3,7 @@
 # Create library
 QT4_WRAP_CPP(analogclock_moc analogclock.h)
 add_library(analogclock SHARED analogclock.cpp ${analogclock_moc})
-target_link_libraries(analogclock ${QT_LIBRARIES})
+target_link_libraries(analogclock ${QT_LIBRARIES} abstractclock)
 set(PROJECT_LIBS ${PROJECT_LIBS} analogclock PARENT_SCOPE)
 
 # the name of the plugin module is the same name as used in the macro Q_EXPORT_PLUGIN2 in the file mywidgetdesignerfactory.cpp

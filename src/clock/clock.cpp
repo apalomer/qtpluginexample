@@ -7,7 +7,7 @@ Clock::Clock(QWidget *parent) :
 }
 
 Clock::Clock(uchar display, QWidget *parent):
-    QWidget(parent), displayType_(display)
+    AbstractClock(display,parent)
 {
     // Set window title
     this->setWindowTitle("Clock");
@@ -28,84 +28,9 @@ Clock::Clock(uchar display, QWidget *parent):
     this->setLayout(layout_);
 }
 
-void Clock::setDisplay(uchar display)
+Clock::~Clock()
 {
-    displayType_ = display;
-    emit displayTypeUpdated();
-    emit displayTypeUpdated(display);
-    emit displayTypeUpdated(this);
+    delete analog_clock_;
+    delete digital_clock_;
+    delete layout_;
 }
-
-uchar Clock::getDisplayType()
-{
-    return displayType_;
-}
-
-bool Clock::getDisplayHours()
-{
-    return displayType_ & DISPLAY_H;
-}
-
-bool Clock::getDisplayMinutes()
-{
-    return displayType_ & DISPLAY_M;
-}
-
-bool Clock::getDisplaySeconds()
-{
-    return displayType_ & DISPLAY_S;
-}
-
-bool Clock::getDisplayMilliseconds()
-{
-    return displayType_ & DISPLAY_MS;
-}
-
-void Clock::setDisplayHours(bool display)
-{
-    if (display)
-        addDisplay(DISPLAY_H);
-    else
-        removeDisplay(DISPLAY_H);
-}
-
-void Clock::setDisplayMinutes(bool display)
-{
-    if (display)
-        addDisplay(DISPLAY_M);
-    else
-        removeDisplay(DISPLAY_M);
-}
-
-void Clock::setDisplaySeconds(bool display)
-{
-    if (display)
-        addDisplay(DISPLAY_S);
-    else
-        removeDisplay(DISPLAY_S);
-}
-
-void Clock::setDisplayMilliseconds(bool display)
-{
-    if (display)
-        addDisplay(DISPLAY_MS);
-    else
-        removeDisplay(DISPLAY_MS);
-}
-
-void Clock::addDisplay(uchar display)
-{
-    displayType_ |= display;
-    emit displayTypeUpdated();
-    emit displayTypeUpdated(displayType_);
-    emit displayTypeUpdated(this);
-}
-
-void Clock::removeDisplay(uchar display)
-{
-    displayType_ &= ~(1u<<(int)log2(display));
-    emit displayTypeUpdated();
-    emit displayTypeUpdated(displayType_);
-    emit displayTypeUpdated(this);
-}
-

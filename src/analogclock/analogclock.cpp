@@ -49,15 +49,15 @@ AnalogClock::AnalogClock(QWidget *parent)
 }
 
 AnalogClock::AnalogClock(uchar display, QWidget *parent)
-    : QWidget(parent), displayType_(display)
+    : AbstractClock(display,parent)
 {
     // Preapare widget
     setWindowTitle(tr("Analog Clock"));
 
     // Set timer
-    QTimer *timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-    timer->start(1);
+    timer_ = new QTimer(this);
+    connect(timer_, SIGNAL(timeout()), this, SLOT(update()));
+    timer_->start(1);
 
     // Repaint widget
     update();
@@ -66,7 +66,7 @@ AnalogClock::AnalogClock(uchar display, QWidget *parent)
 
 AnalogClock::~AnalogClock()
 {
-
+    delete timer_;
 }
 
 void AnalogClock::paintEvent(QPaintEvent *)
@@ -165,85 +165,3 @@ void AnalogClock::paintEvent(QPaintEvent *)
         painter.restore();
     }
 }
-
-void AnalogClock::setDisplay(uchar display)
-{
-    displayType_ = display;
-    emit displayTypeUpdated();
-    emit displayTypeUpdated(display);
-    emit displayTypeUpdated(this);
-}
-
-uchar AnalogClock::getDisplayType()
-{
-    return displayType_;
-}
-
-bool AnalogClock::getDisplayHours()
-{
-    return displayType_ & DISPLAY_H;
-}
-
-bool AnalogClock::getDisplayMinutes()
-{
-    return displayType_ & DISPLAY_M;
-}
-
-bool AnalogClock::getDisplaySeconds()
-{
-    return displayType_ & DISPLAY_S;
-}
-
-bool AnalogClock::getDisplayMilliseconds()
-{
-    return displayType_ & DISPLAY_MS;
-}
-
-void AnalogClock::setDisplayHours(bool display)
-{
-    if (display)
-        addDisplay(DISPLAY_H);
-    else
-        removeDisplay(DISPLAY_H);
-}
-
-void AnalogClock::setDisplayMinutes(bool display)
-{
-    if (display)
-        addDisplay(DISPLAY_M);
-    else
-        removeDisplay(DISPLAY_M);
-}
-
-void AnalogClock::setDisplaySeconds(bool display)
-{
-    if (display)
-        addDisplay(DISPLAY_S);
-    else
-        removeDisplay(DISPLAY_S);
-}
-
-void AnalogClock::setDisplayMilliseconds(bool display)
-{
-    if (display)
-        addDisplay(DISPLAY_MS);
-    else
-        removeDisplay(DISPLAY_MS);
-}
-
-void AnalogClock::addDisplay(uchar display)
-{
-    displayType_ |= display;
-    emit displayTypeUpdated();
-    emit displayTypeUpdated(displayType_);
-    emit displayTypeUpdated(this);
-}
-
-void AnalogClock::removeDisplay(uchar display)
-{
-    displayType_ &= ~(1u<<(int)log2(display));
-    emit displayTypeUpdated();
-    emit displayTypeUpdated(displayType_);
-    emit displayTypeUpdated(this);
-}
-

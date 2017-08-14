@@ -52,11 +52,14 @@ ADD_DEFINITIONS(${QT_DEFINITIONS})
 # Add code
 add_subdirectory(src)
 
+message(STATUS "Clock libraries: ${PROJECT_LIBS}")
+message(STATUS "Clock binaries: ${PROJECT_BINS}")
+
 # Generate confi files for cmake
 # ===============================
 
 # Add all targets to the build-tree export set
-export(TARGETS clock analogclock digitalclock
+export(TARGETS ${PROJECT_BINS} ${PROJECT_LIBS}
   FILE "${PROJECT_BINARY_DIR}/ClockTargets.cmake")
 
 # Export the package for use from the build-tree

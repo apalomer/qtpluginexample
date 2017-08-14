@@ -1,5 +1,6 @@
 
 # Library
+add_subdirectory(abstractclock)
 add_subdirectory(clock)
 add_subdirectory(analogclock)
 add_subdirectory(digitalclock)

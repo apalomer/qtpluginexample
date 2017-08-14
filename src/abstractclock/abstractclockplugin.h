@@ -38,28 +38,36 @@
 **
 ****************************************************************************/
 
-#ifndef ANALOGCLOCK_H
-#define ANALOGCLOCK_H
+#ifndef CUSTOMWIDGETPLUGIN_H
+#define CUSTOMWIDGETPLUGIN_H
 
-#include <QWidget>
-#include <QtDesigner/QDesignerExportWidget>
-#include <bitset>
-#include <iostream>
-#include <iomanip>
-#include "abstractclock/abstractclock.h"
+#include <QDesignerCustomWidgetInterface>
 
-class QDESIGNER_WIDGET_EXPORT AnalogClock : public AbstractClock
+class AbstractClockPlugin : public QObject, public QDesignerCustomWidgetInterface
 {
     Q_OBJECT
-public:
-    explicit AnalogClock(QWidget* parent = 0);
-    explicit AnalogClock(uchar display, QWidget *parent = 0);
-    virtual ~AnalogClock();
+    Q_INTERFACES(QDesignerCustomWidgetInterface)
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+        Q_PLUGIN_METADATA(IID "com.ics.Qt.CustomWidgets")
+#endif
 
-protected:
-    void paintEvent(QPaintEvent *event);
+public:
+    ClockPlugin(QObject *parent = 0);
+
+    bool isContainer() const;
+    bool isInitialized() const;
+    QIcon icon() const;
+    QString domXml() const;
+    QString group() const;
+    QString includeFile() const;
+    QString name() const;
+    QString toolTip() const;
+    QString whatsThis() const;
+    QWidget *createWidget(QWidget *parent);
+    void initialize(QDesignerFormEditorInterface *core);
+
 private:
-    QTimer* timer_;
+    bool initialized;
 };
 
 #endif
