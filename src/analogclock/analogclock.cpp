@@ -109,7 +109,7 @@ void AnalogClock::paintEvent(QPaintEvent *)
     QColor milliSecondColor(0, 0, 0);
 
     // Paint hour handle
-    if (displayType_ & DISPLAY_H){
+    if (getDisplayHours()){
         painter.setPen(Qt::NoPen);
         painter.setBrush(hourColor);
         painter.save();
@@ -127,7 +127,7 @@ void AnalogClock::paintEvent(QPaintEvent *)
     }
 
     // Paint minute handle
-    if (displayType_ & DISPLAY_M){
+    if (getDisplayMinutes()){
         painter.setPen(Qt::NoPen);
         painter.setBrush(minuteColor);
         painter.save();
@@ -177,5 +177,73 @@ void AnalogClock::setDisplay(uchar display)
 uchar AnalogClock::getDisplayType()
 {
     return displayType_;
+}
+
+bool AnalogClock::getDisplayHours()
+{
+    return displayType_ & DISPLAY_H;
+}
+
+bool AnalogClock::getDisplayMinutes()
+{
+    return displayType_ & DISPLAY_M;
+}
+
+bool AnalogClock::getDisplaySeconds()
+{
+    return displayType_ & DISPLAY_S;
+}
+
+bool AnalogClock::getDisplayMilliseconds()
+{
+    return displayType_ & DISPLAY_MS;
+}
+
+void AnalogClock::setDisplayHours(bool display)
+{
+    if (display)
+        addDisplay(DISPLAY_H);
+    else
+        removeDisplay(DISPLAY_H);
+}
+
+void AnalogClock::setDisplayMinutes(bool display)
+{
+    if (display)
+        addDisplay(DISPLAY_M);
+    else
+        removeDisplay(DISPLAY_M);
+}
+
+void AnalogClock::setDisplaySeconds(bool display)
+{
+    if (display)
+        addDisplay(DISPLAY_S);
+    else
+        removeDisplay(DISPLAY_S);
+}
+
+void AnalogClock::setDisplayMilliseconds(bool display)
+{
+    if (display)
+        addDisplay(DISPLAY_MS);
+    else
+        removeDisplay(DISPLAY_MS);
+}
+
+void AnalogClock::addDisplay(uchar display)
+{
+    displayType_ |= display;
+    emit displayTypeUpdated();
+    emit displayTypeUpdated(displayType_);
+    emit displayTypeUpdated(this);
+}
+
+void AnalogClock::removeDisplay(uchar display)
+{
+    displayType_ &= ~(1u<<(int)log2(display));
+    emit displayTypeUpdated();
+    emit displayTypeUpdated(displayType_);
+    emit displayTypeUpdated(this);
 }
 

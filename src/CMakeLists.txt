@@ -1,8 +1,8 @@
 
 # Library
+add_subdirectory(clock)
 add_subdirectory(analogclock)
 add_subdirectory(digitalclock)
-add_subdirectory(clock)
 
 # Library version
 configure_file(clockversion.h.in "${CMAKE_CURRENT_BINARY_DIR}/clockversion.h" @ONLY)
