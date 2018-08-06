@@ -41,18 +41,16 @@
 #ifndef CUSTOMWIDGETPLUGIN_H
 #define CUSTOMWIDGETPLUGIN_H
 
-#include <QDesignerCustomWidgetInterface>
+#include <QtUiPlugin/QDesignerCustomWidgetInterface>
 
 class DigitalClockPlugin : public QObject, public QDesignerCustomWidgetInterface
 {
     Q_OBJECT
     Q_INTERFACES(QDesignerCustomWidgetInterface)
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-        Q_PLUGIN_METADATA(IID "com.ics.Qt.CustomWidgets")
-#endif
+    Q_PLUGIN_METADATA(IID "com.ics.Qt.CustomWidgets")
 
 public:
-    DigitalClockPlugin(QObject *parent = 0);
+    DigitalClockPlugin(QObject *parent = nullptr);
 
     bool isContainer() const;
     bool isInitialized() const;

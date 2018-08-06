@@ -1,9 +1,8 @@
 
 
 # Create library
-QT4_WRAP_CPP(abstractclock_moc abstractclock.h)
-add_library(abstractclock SHARED abstractclock.cpp ${abstractclock_moc})
-target_link_libraries(abstractclock ${QT_LIBRARIES})
+add_library(abstractclock SHARED abstractclock.cpp)
+target_link_libraries(abstractclock Qt5::Core Qt5::Widgets)
 set(PROJECT_LIBS ${PROJECT_LIBS} abstractclock PARENT_SCOPE)
 
 #if this is done befor the previous command the header files ar copied to qt pluguins as well

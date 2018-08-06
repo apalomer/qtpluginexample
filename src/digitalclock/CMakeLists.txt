@@ -1,12 +1,10 @@
 # Create library
-QT4_WRAP_CPP(digitalclock_moc digitalclock.h)
-add_library(digitalclock SHARED digitalclock.cpp ${digitalclock_moc})
-target_link_libraries(digitalclock ${QT_LIBRARIES} abstractclock)
+add_library(digitalclock SHARED digitalclock.cpp)
+target_link_libraries(digitalclock Qt5::Core Qt5::Widgets abstractclock)
 set(PROJECT_LIBS ${PROJECT_LIBS} digitalclock PARENT_SCOPE)
 
 # the name of the plugin module is the same name as used in the macro Q_EXPORT_PLUGIN2 in the file mywidgetdesignerfactory.cpp
-QT4_WRAP_CPP(digitalclockplugin_moc digitalclockplugin.h)
-add_library( digitalclockplugin SHARED digitalclockplugin.cpp ${digitalclockplugin_moc})
+add_library( digitalclockplugin SHARED digitalclockplugin.cpp)
 target_link_libraries( digitalclockplugin
   digitalclock
   ${QT_LIBRARIES}

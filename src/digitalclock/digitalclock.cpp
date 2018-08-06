@@ -76,6 +76,6 @@ void DigitalClock::showTime()
      }
 
      // Set up display
-     lcd_->setNumDigits(text.size());
+     lcd_->setDigitCount(text.size());
      lcd_->display(text);
  }

@@ -1,53 +1,41 @@
 #include "clockday.h"
+#include <bitset>
 #include "ui_clockday.h"
 
-ClockDay::ClockDay(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::ClockDay)
+ClockDay::ClockDay(QWidget *parent) : QWidget(parent), ui(new Ui::ClockDay)
 {
-    // Set up current widget
-    ui->setupUi(this);
+  // Set up current widget
+  ui->setupUi(this);
 
-    // Update clock style
-    ui->comboBox->setCurrentIndex(3);
+  // Create timer
+  timer = new QTimer;
+  timer->start(1000);
+  connect(timer, SIGNAL(timeout()), this, SLOT(updateDay()));
 
-    // Create timer
-    timer = new QTimer;
-    timer->start(1000);
-    connect(timer,SIGNAL(timeout()),this,SLOT(updateDay()));
-
-    // Update widget
-    updateDay();
+  // Update widget
+  updateDay();
 }
 
 ClockDay::~ClockDay()
 {
-    delete ui;
-    delete timer;
+  delete ui;
+  delete timer;
 }
 
 void ClockDay::updateDay()
 {
-    QDateTime datetime = QDateTime::currentDateTime();
-    ui->dayLabel->setText(datetime.toString("dddd dd/MM/yyyy"));
+  QDateTime datetime = QDateTime::currentDateTime();
+  ui->dayLabel->setText(datetime.toString("dddd dd/MM/yyyy"));
+
+  // Connections
+  //  connect(ui->hours_checkbox, &QCheckBox::clicked, this, &ClockDay::updateComboBox);
+  //  connect(ui->minutes_checkbox, &QCheckBox::clicked, this, &ClockDay::updateComboBox);
+  //  connect(ui->seconds_checkbox, &QCheckBox::clicked, this, &ClockDay::updateComboBox);
+  //  connect(ui->milliseconds_checkbox, &QCheckBox::clicked, this, &ClockDay::updateComboBox);
 }
 
-void ClockDay::on_comboBox_currentIndexChanged(int index)
+void ClockDay::updateComboBox()
 {
-    if (index == 0)
-        ui->clock->setDisplay(Clock::DISPLAY_H);
-    if (index == 1)
-        ui->clock->setDisplay(Clock::DISPLAY_H|Clock::DISPLAY_M);
-    if (index == 2)
-        ui->clock->setDisplay(Clock::DISPLAY_H|Clock::DISPLAY_M|Clock::DISPLAY_S);
-    if (index == 3)
-        ui->clock->setDisplay(Clock::DISPLAY_H|Clock::DISPLAY_M|Clock::DISPLAY_S|Clock::DISPLAY_MS);
-    if (index == 4)
-        ui->clock->setDisplay(Clock::DISPLAY_M|Clock::DISPLAY_S);
-    if (index == 5)
-        ui->clock->setDisplay(Clock::DISPLAY_M|Clock::DISPLAY_S|Clock::DISPLAY_MS);
-    if (index == 6)
-        ui->clock->setDisplay(Clock::DISPLAY_S);
-    if (index == 7)
-        ui->clock->setDisplay(Clock::DISPLAY_S|Clock::DISPLAY_MS);
+  std::cout << "Type: " << std::bitset<8>(ui->clock->getDisplayType());
+  std::cout << " -> " << std::bitset<8>(ui->clock->getDisplayType()) << std::endl;
 }

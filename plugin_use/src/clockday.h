@@ -1,28 +1,29 @@
 #ifndef CLOCKDAY_H
 #define CLOCKDAY_H
 
-#include <QWidget>
-#include <QTimer>
 #include <QDateTime>
+#include <QTimer>
+#include <QWidget>
 
-namespace Ui {
+namespace Ui
+{
 class ClockDay;
 }
 
 class ClockDay : public QWidget
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    explicit ClockDay(QWidget *parent = 0);
-    ~ClockDay();
+  explicit ClockDay(QWidget *parent = nullptr);
+  ~ClockDay();
+public slots:
+  void updateComboBox();
 private slots:
-    void updateDay();
-    void on_comboBox_currentIndexChanged(int index);
+  void updateDay();
 
 private:
-    Ui::ClockDay *ui;
-    QTimer* timer;
+  Ui::ClockDay *ui;
+  QTimer *timer;
 };
-
-#endif // CLOCKDAY_H
+#endif  // CLOCKDAY_H

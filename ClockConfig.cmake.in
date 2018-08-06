@@ -5,11 +5,7 @@
 #  Clock_EXECUTABLE   - the bar executable
 
 # Find LIbrary
-find_package(Qt 4 REQUIRED)
-set (QT_USE_QTDESIGNER TRUE)
-set (QT_USE_QTGUI TRUE)
-INCLUDE(${QT_USE_FILE})
-ADD_DEFINITIONS(${QT_DEFINITIONS})
+find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets)
 
 # Compute paths
 get_filename_component(Clock_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)

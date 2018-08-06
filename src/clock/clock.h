@@ -12,8 +12,8 @@ class Clock : public AbstractClock
 {
     Q_OBJECT
 public:
-    explicit Clock(QWidget *parent = 0);
-    explicit Clock(uchar display, QWidget *parent = 0);
+    explicit Clock(QWidget *parent = nullptr);
+    explicit Clock(uchar display, QWidget *parent = nullptr);
     ~Clock();
 
 private:

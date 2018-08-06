@@ -1,7 +1,7 @@
 # Set up cmake
 cmake_minimum_required (VERSION 2.6)
 project (ClockProject CXX C)
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
+add_compile_options(-std=c++17 -Wall -Wextra)
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR})
 
 # Check platform
@@ -10,8 +10,8 @@ if(NOT UNIX)
 endif()
 
 # track library version
-set(CLOCK_MAJOR_VERSION 4)
-set(CLOCK_MINOR_VERSION 1)
+set(CLOCK_MAJOR_VERSION 5)
+set(CLOCK_MINOR_VERSION 0)
 set(CLOCK_PATCH_VERSION 0)
 set(CLOCK_VERSION
   ${CLOCK_MAJOR_VERSION}.${CLOCK_MINOR_VERSION}.${CLOCK_PATCH_VERSION})
@@ -40,14 +40,17 @@ set(INSTALL_BIN_DIR "${CMAKE_INSTALL_PREFIX}/bin")
 set(INSTALL_LIB_DIR "${CMAKE_INSTALL_PREFIX}/lib")
 set(INSTALL_INCLUDE_DIR "${CMAKE_INSTALL_PREFIX}/include/clock")
 set(INSTALL_CMAKE_DIR "${CMAKE_INSTALL_PREFIX}/share/clock")
-set(INSTALL_QTPLUGINS_DIR "/usr/lib/qt4/plugins/designer/")
+set(INSTALL_QTPLUGINS_DIR "/usr/lib/x86_64-linux-gnu/qt5/plugins/designer/")
 
 # Find LIbrary
-FIND_PACKAGE(Qt 4 REQUIRED)
-set (QT_USE_QTDESIGNER TRUE)
-set (QT_USE_QTGUI TRUE)
-INCLUDE(${QT_USE_FILE})
-ADD_DEFINITIONS(${QT_DEFINITIONS})
+find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets)
+# Find includes in corresponding build directories
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+# Instruct CMake to run moc automatically when needed
+set(CMAKE_AUTOMOC ON)
+# Create code from a list of Qt designer ui files
+set(CMAKE_AUTOUIC ON)
+
 
 # Add code
 add_subdirectory(src)

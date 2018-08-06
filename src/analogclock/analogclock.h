@@ -42,7 +42,7 @@
 #define ANALOGCLOCK_H
 
 #include <QWidget>
-#include <QtDesigner/QDesignerExportWidget>
+#include <QtUiPlugin/QDesignerExportWidget>
 #include <bitset>
 #include <iostream>
 #include <iomanip>
@@ -52,8 +52,8 @@ class QDESIGNER_WIDGET_EXPORT AnalogClock : public AbstractClock
 {
     Q_OBJECT
 public:
-    explicit AnalogClock(QWidget* parent = 0);
-    explicit AnalogClock(uchar display, QWidget *parent = 0);
+    explicit AnalogClock(QWidget* parent = nullptr);
+    explicit AnalogClock(uchar display, QWidget *parent = nullptr);
     virtual ~AnalogClock();
 
 protected:

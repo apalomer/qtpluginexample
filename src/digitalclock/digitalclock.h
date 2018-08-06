@@ -13,8 +13,8 @@ class DigitalClock : public AbstractClock
 {
     Q_OBJECT
 public:
-    DigitalClock(QWidget *parent = 0);
-    DigitalClock(uchar display, QWidget *parent = 0);
+    DigitalClock(QWidget *parent = nullptr);
+    DigitalClock(uchar display, QWidget *parent = nullptr);
     ~DigitalClock();
 
 private slots:
